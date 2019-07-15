@@ -10,16 +10,6 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          id="WebApp_ID" version="3.0">
 
   <display-name>Archetype Created Web Application</display-name>
-
-  <!--配置Spring的监听器,默认只加载WEB-INF目录下的appliationContext.xml配置文件-->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  <!--设置配置文件的路径-->
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring/applicationContext.xml,classpath:mybatis/applicationContext-mybatis.xml,classpath:mybatis/applicationContext-tx.xml</param-value>
-  </context-param>
   
   <!--配置前端控制器-->
   <servlet>
@@ -27,7 +17,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring-mvc/spring-mvc.xml</param-value>
+      <param-value>classpath:spring-mvc/spring-mvc.xml,classpath:spring/applicationContext*.xml,classpath:mybatis/applicationContext*.xml</param-value>
     </init-param>
     <!--启动服务器，创建该servlet-->
     <load-on-startup>1</load-on-startup>

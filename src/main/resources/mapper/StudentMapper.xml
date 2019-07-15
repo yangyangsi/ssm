@@ -3,6 +3,10 @@
 
 <mapper namespace="com.hand.ssm.dao.StudentMapper">
    <select id="getAllStudent" resultType="com.hand.ssm.pojo.Student">
-      select * from student
+        select * from student
    </select>
+
+   <insert id="InsertStudent" parameterType="com.hand.ssm.pojo.Student">
+        insert into student value (#{sno},#{sname},#{score});
+   </insert>
 </mapper>

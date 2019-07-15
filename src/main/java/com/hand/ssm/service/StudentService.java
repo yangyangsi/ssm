@@ -17,4 +17,10 @@ public class StudentService {
     public List<Student> getAllStudent(){
         return studentMapper.getAllStudent();
     }
+
+
+    @Transactional
+    public void insertStudent(Student student){
+        studentMapper.InsertStudent(student);
+    }
 }

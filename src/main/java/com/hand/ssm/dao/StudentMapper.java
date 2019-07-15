@@ -7,5 +7,6 @@ package com.hand.ssm.dao;
 
 @Repository
 public interface StudentMapper {
-    public List<Student> getAllStudent();
+    List<Student> getAllStudent();
+    void InsertStudent(Student student);
 }
