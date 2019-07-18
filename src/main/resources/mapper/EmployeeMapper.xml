@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hand.yz24580.ssm.mapper.EmployeeMapper">
+    <resultMap id="employeeResultMap" type="com.hand.yz24580.ssm.pojo.Employee">
+        <id property="empId" column="emp_id" />
+        <result property="empName" column="emp_name" />
+        <result property="gender" column="emp_gender" />
+        <result property="email" column="emp_email" />
+        <result property="dId" column="dept_id"/>
+        <association property="department" javaType="com.hand.yz24580.ssm.pojo.Department">
+            <id property="deptId" column="dept_id" />
+            <result property="deptName" column="dept_name" />
+        </association>
+    </resultMap>
+
+    <select id="getAllEmployees" resultMap="employeeResultMap">
+        select tbl_emp.emp_id emp_id,
+                tbl_emp.emp_name emp_name,
+                 tbl_emp.gender emp_gender,
+                  tbl_emp.email emp_email,
+                   tnl_dept.dept_id dept_id,
+                    tnl_dept.dept_name dept_name
+                     from tbl_emp LEFT JOIN tnl_dept on tbl_emp.d_id=tnl_dept.dept_id
+    </select>
+
+    <select id="getEmployeeById" resultMap="employeeResultMap">
+        select tbl_emp.emp_id emp_id,
+                tbl_emp.emp_name emp_name,
+                 tbl_emp.gender emp_gender,
+                  tbl_emp.email emp_email,
+                   tnl_dept.dept_id dept_id,
+                    tnl_dept.dept_name dept_name
+                     from tbl_emp LEFT JOIN tnl_dept on tbl_emp.d_id=tnl_dept.dept_id
+                         where   tbl_emp.emp_id = #{value}
+
+    </select>
+
+    <select id="getEmployeeByName" resultMap="employeeResultMap">
+        select tbl_emp.emp_id emp_id,
+                tbl_emp.emp_name emp_name,
+                 tbl_emp.gender emp_gender,
+                  tbl_emp.email emp_email,
+                   tnl_dept.dept_id dept_id,
+                    tnl_dept.dept_name dept_name
+                     from tbl_emp LEFT JOIN tnl_dept on tbl_emp.d_id=tnl_dept.dept_id
+                         where   tbl_emp.emp_name = #{value}
+
+    </select>
+
+    <insert id="insertEmployee" parameterType="com.hand.yz24580.ssm.pojo.Employee" useGeneratedKeys="true" keyProperty="empId">
+        insert into tbl_emp (emp_name,gender,email,d_id) values (#{empName},#{gender},#{email},#{dId})
+    </insert>
+
+    <delete id="deleteEmployeeById" parameterType="java.lang.Integer">
+        delete from tbl_emp where emp_id=#{value}
+    </delete>
+
+    <delete id="deleteBatch">
+        delete from tbl_emp where emp_id in
+        <foreach collection="list" open="(" close=")" separator="," index="index" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updateEmployee" parameterType="com.hand.yz24580.ssm.pojo.Employee">
+        update tbl_emp
+            <set>
+                <if test="empName != null">
+                    emp_name=#{empName},
+                </if>
+                <if test="gender != null">
+                    gender=#{gender},
+                </if>
+                <if test="email != null">
+                    email=#{email},
+                </if>
+                <if test="dId">
+                    d_id=#{dId}
+                </if>
+            </set>
+              where emp_id=#{empId}
+    </update>
+</mapper>
