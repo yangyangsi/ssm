@@ -4,6 +4,7 @@ import com.hand.yz24580.ssm.mapper.DepartmentMapper;
 import com.hand.yz24580.ssm.pojo.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class DepartmentService {
 	@Autowired
 	private DepartmentMapper departmentMapper;
 
+	@Transactional
 	public List<Department> getDepts() {
 		// TODO Auto-generated method stub
 		List<Department> list = departmentMapper.getAllDepartments();

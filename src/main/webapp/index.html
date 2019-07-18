@@ -535,7 +535,6 @@
 					url:"/emp/"+empId,
 					type:"DELETE",
 					success:function(result){
-						alert(result.msg);
 						//回到本页
 						if(currentPage>Math.ceil((totalRecord-1)/5)){
 							to_page(Math.ceil((totalRecord-1)/5));
@@ -587,7 +586,7 @@
 					success:function(result){
 						alert(result.msg);
 						//回到当前页面
-						if(currentPage>=to_page(Math.ceil((totalRecord-checkedNum)/5))){
+						if(currentPage>=Math.ceil((totalRecord-checkedNum)/5)){
 							to_page(Math.ceil((totalRecord-checkedNum)/5));
 						}else{
 							to_page(currentPage);
