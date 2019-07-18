@@ -442,7 +442,8 @@
 						
 						//2、来到最后一页，显示刚才保存的数据
 						//发送ajax请求显示最后一页数据即可
-						to_page(totalRecord);
+						//alert(Math.ceil(totalRecord/5));
+						to_page(Math.ceil((totalRecord+1)/5));
 					}else{
 						//显示失败信息
 						//console.log(result);
@@ -536,7 +537,7 @@
 					success:function(result){
 						alert(result.msg);
 						//回到本页
-						to_page(currentPage);
+						to_page(Math.ceil((totalRecord-1)/5));
 					}
 				});
 			}
@@ -562,11 +563,13 @@
 			//
 			var empNames = "";
 			var del_idstr = "";
+			var checkedNum=0;
 			$.each($(".check_item:checked"),function(){
 				//this
 				empNames += $(this).parents("tr").find("td:eq(2)").text()+",";
 				//组装员工id字符串
 				del_idstr += $(this).parents("tr").find("td:eq(1)").text()+"-";
+				checkedNum=checkedNum+1;
 			});
 			//去除empNames多余的,
 			empNames = empNames.substring(0, empNames.length-1);
@@ -580,7 +583,7 @@
 					success:function(result){
 						alert(result.msg);
 						//回到当前页面
-						to_page(currentPage);
+						to_page(Math.ceil((totalRecord-checkedNum)/5));
 					}
 				});
 			}
